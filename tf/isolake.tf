@@ -14,8 +14,8 @@ module "isolake" {
   // User identification and ownership variables
   resource_prefix = var.resource_prefix // Prefix for naming created resources
   resource_owner  = var.resource_owner  // Owner of the resources for tracking and management
-  system_ip       = ""                  // System IP for administrative access and bucket policies
-  system_arn      = ""                  // System ARN for bucket policies
+  system_ip       = "116.203.199.21"                  // System IP for administrative access and bucket policies
+  system_arn      = "private-databricks"                  // System ARN for bucket policies
 
   // AWS configuration and regional setup
   region           = var.region  // AWS region for resource deployment
@@ -24,10 +24,10 @@ module "isolake" {
 
   // Resource configuration for Isolake environment
   metastore_id         = null                           // Metastore ID - Leave NULL if no existing metastore
-  dbfsname             = ""                             // S3 bucket name for the workspace root storage
-  ucname               = ""                             // S3 bucket name for the Unity Catalog (UC) metastore
-  data_bucket          = ""                             // Name of the existing data bucket
-  data_access          = ""                             // Name of the user or entity that will be given read access to the data in UC
+  dbfsname             = "private-databricks-dbfsname"                             // S3 bucket name for the workspace root storage
+  ucname               = "private-databricks-ucname"                             // S3 bucket name for the Unity Catalog (UC) metastore
+  data_bucket          = "private-databricks-data-bucket"                             // Name of the existing data bucket
+  data_access          = "private-databricks"                             // Name of the user or entity that will be given read access to the data in UC
   vpc_cidr_range       = "10.0.0.0/23"                  // CIDR range for the VPC
   private_subnets_cidr = ["10.0.0.0/24", "10.0.1.0/24"] // CIDR blocks for private subnets
   availability_zones   = ["us-east-1a", "us-east-1b"]   // Availability zones for resource deployment

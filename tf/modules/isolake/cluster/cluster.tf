@@ -6,8 +6,8 @@ resource "databricks_cluster" "example" {
   node_type_id       = "i3.xlarge"
   data_security_mode = "SINGLE_USER"
   autoscale {
-    min_workers = 1
-    max_workers = 2
+    min_workers = 0
+    max_workers = 1
   }
   spark_conf = {
     "spark.hadoop.javax.jdo.option.ConnectionUserName"   = "admin"
