@@ -30,7 +30,7 @@ module "isolake" {
   data_access          = "private-databricks"                             // Name of the user or entity that will be given read access to the data in UC
   vpc_cidr_range       = "10.0.0.0/23"                  // CIDR range for the VPC
   private_subnets_cidr = ["10.0.0.0/24", "10.0.1.0/24"] // CIDR blocks for private subnets
-  availability_zones   = ["us-east-1a", "us-east-1b"]   // Availability zones for resource deployment
+  availability_zones   = ["us-east-1a"]   // Availability zones for resource deployment
   sg_ingress_protocol  = ["tcp", "udp"]                 // Allowed protocols for within security group ingress
   sg_egress_protocol   = ["tcp", "udp"]                 // Allowed protocols for within security group egress
 
@@ -46,7 +46,7 @@ module "isolake" {
   relay_vpce_service     = "com.amazonaws.vpce.us-east-1.vpce-svc-00018a8c3ff62ffdf" // VPCE service for relay
 
   // Optional: Example cluster configuration with Derby Metastore
-  enable_cluster_example = false // Flag to enable example cluster with Derby Metastore
+  enable_cluster_example = true // Flag to enable example cluster with Derby Metastore
 
   // Experimental features (WARNING: May impact usage or access)
   enable_dbfs_lockdown                  = false // Lockdown on workspace root bucket
