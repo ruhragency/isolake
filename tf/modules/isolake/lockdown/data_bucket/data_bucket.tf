@@ -75,30 +75,30 @@ data "aws_iam_policy_document" "data_bucket_policy" {
   #   }
   # }
 
-  # statement {
-  #   sid     = "DenyActionsFromUntrustedPrincipals"
-  #   effect  = "Deny"
-  #   actions = ["s3:*"]
-  #   resources = [
-  #     "arn:aws:s3:::${aws_s3_bucket.isolake_data_bucket.id}",
-  #     "arn:aws:s3:::${vaws_s3_bucket.isolake_data_bucket.id}/*"
-  #   ]
+  statement {
+    sid     = "DenyActionsFromUntrustedPrincipals"
+    effect  = "Deny"
+    actions = ["s3:*"]
+    resources = [
+      "arn:aws:s3:::${aws_s3_bucket.isolake_data_bucket.id}",
+      "arn:aws:s3:::${aws_s3_bucket.isolake_data_bucket.id}/*"
+    ]
 
-  #   principals {
-  #     type        = "AWS"
-  #     identifiers = ["*"]
-  #   }
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
 
-  #   condition {
-  #     test     = "StringNotEqualsIfExists"
-  #     variable = "aws:PrincipalArn"
+    condition {
+      test     = "StringNotEqualsIfExists"
+      variable = "aws:PrincipalArn"
 
-  #     values = [
-  #       "arn:aws:iam::${var.aws_account_id}:role/${var.resource_prefix}-storage-credential",
-  #       var.system_arn
-  #     ]
-  #   }
-  # }
+      values = [
+        "arn:aws:iam::${var.aws_account_id}:role/${var.resource_prefix}-storage-credential",
+        var.system_arn
+      ]
+    }
+  }
 
   statement {
     sid     = "AllowSSLRequestsOnly"
