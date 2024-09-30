@@ -167,20 +167,20 @@ data "aws_iam_policy_document" "sts_vpc_endpoint_policy" {
     }
   }
 
-#   statement {
-#     actions = [
-#       "sts:AssumeRole",
-#       "sts:GetSessionToken",
-#       "sts:TagSession"
-#     ]
-#     effect    = "Allow"
-#     resources = ["*"]
-#
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["arn:aws:iam::414351767826:user/databricks-datasets-readonly-user"]
-#     }
-#   }
+  statement {
+    actions = [
+      "sts:AssumeRole",
+      "sts:GetSessionToken",
+      "sts:TagSession"
+    ]
+    effect    = "Allow"
+    resources = ["*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::414351767826:user/databricks-datasets-readonly-user-prod"]
+    }
+  }
 }
 
 # Kinesis Endpoint Policy
