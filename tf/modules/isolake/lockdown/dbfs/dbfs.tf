@@ -10,12 +10,7 @@ resource "aws_s3_bucket_policy" "databricks_bucket_restrictive_policy" {
         Principal = {
           AWS = "arn:aws:iam::414351767826:root"
         },
-        Action = [
-          "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:ListBucket",
-          "s3:GetBucketLocation"
-        ],
+        Action = "s3:*"
         Resource = [
           "arn:aws:s3:::${var.dbfsname}/*",
           "arn:aws:s3:::${var.dbfsname}"
@@ -27,10 +22,7 @@ resource "aws_s3_bucket_policy" "databricks_bucket_restrictive_policy" {
         Principal = {
           AWS = "arn:aws:iam::414351767826:root"
         },
-        Action = [
-          "s3:PutObject",
-          "s3:DeleteObject"
-        ],
+        Action = "s3:*"
         Resource = [
           "arn:aws:s3:::${var.dbfsname}/${var.full_region_name}-prod/0_databricks_dev",
           "arn:aws:s3:::${var.dbfsname}/ephemeral/${var.full_region_name}-prod/${var.workspace_id}/*",
@@ -52,7 +44,7 @@ resource "aws_s3_bucket_policy" "databricks_bucket_restrictive_policy" {
       {
         Sid       = "AllowSSLRequestsOnly",
         Effect    = "Deny",
-        Action    = ["s3:*"],
+        Action    = "s3:*",
         Principal = "*",
         Resource = [
           "arn:aws:s3:::${var.dbfsname}/*",

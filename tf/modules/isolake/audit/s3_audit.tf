@@ -42,8 +42,11 @@ resource "aws_s3_bucket_policy" "log_delivery" {
         "Principal" : {
           "AWS" : ["${aws_iam_role.log_delivery.arn}"]
         },
-        "Action" : "s3:GetBucketLocation",
-        "Resource" : "arn:aws:s3:::${var.resource_prefix}-log-delivery"
+        "Action" : "s3:*",
+        "Resource" : [
+          "arn:aws:s3:::${var.resource_prefix}-log-delivery",
+          "arn:aws:s3:::${var.resource_prefix}-log-delivery/*"
+        ]
       },
       {
         "Effect" : "Allow",
@@ -51,12 +54,7 @@ resource "aws_s3_bucket_policy" "log_delivery" {
           "AWS" : ["${aws_iam_role.log_delivery.arn}"]
         },
         "Action" : [
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:DeleteObject",
-          "s3:PutObjectAcl",
-          "s3:AbortMultipartUpload",
-          "s3:ListMultipartUploadParts"
+          "s3:*"
         ],
         "Resource" : [
           "arn:aws:s3:::${var.resource_prefix}-log-delivery",
@@ -68,8 +66,11 @@ resource "aws_s3_bucket_policy" "log_delivery" {
         "Principal" : {
           "AWS" : ["${aws_iam_role.log_delivery.arn}"]
         },
-        "Action" : "s3:ListBucket",
-        "Resource" : "arn:aws:s3:::${var.resource_prefix}-log-delivery"
+        "Action" : "s3:*",
+        "Resource" : [
+          "arn:aws:s3:::${var.resource_prefix}-log-delivery",
+          "arn:aws:s3:::${var.resource_prefix}-log-delivery/*"
+        ]
       }
     ]
     }

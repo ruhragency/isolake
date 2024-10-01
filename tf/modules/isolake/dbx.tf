@@ -90,9 +90,9 @@ module "uc_data" {
   vpc_id                = module.vpc.vpc_id
   aws_account_id        = var.aws_account_id
   control_plane_ip      = var.control_plane_ip
-  depends_on = [
-    module.uc_init, module.uc_assignment
-  ]
+#   depends_on = [
+#     module.uc_init, module.uc_assignment
+#   ]
 }
 
 // Create Cluster with Derby Configuration

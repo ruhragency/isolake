@@ -7,11 +7,11 @@ data "aws_iam_policy_document" "passrole_for_storage_credential" {
       identifiers = ["arn:aws:iam::414351767826:role/unity-catalog-prod-UCMasterRole-14S5ZJVKOTYTL"]
       type        = "AWS"
     }
-    condition {
-      test     = "StringEquals"
-      variable = "sts:ExternalId"
-      values   = [var.databricks_account_id]
-    }
+#     condition {
+#       test     = "StringEquals"
+#       variable = "sts:ExternalId"
+#       values   = [var.databricks_account_id]
+#     }
   }
   statement {
     sid     = "ExplicitSelfRoleAssumption"
@@ -21,16 +21,16 @@ data "aws_iam_policy_document" "passrole_for_storage_credential" {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${var.aws_account_id}:root"]
     }
-    condition {
-      test     = "ArnLike"
-      variable = "aws:PrincipalArn"
-      values   = ["arn:aws:iam::${var.aws_account_id}:role/${var.resource_prefix}-storage-credential"]
-    }
-    condition {
-      test     = "StringEquals"
-      variable = "sts:ExternalId"
-      values   = [var.databricks_account_id]
-    }
+#     condition {
+#       test     = "ArnLike"
+#       variable = "aws:PrincipalArn"
+#       values   = ["arn:aws:iam::${var.aws_account_id}:role/${var.resource_prefix}-storage-credential"]
+#     }
+#     condition {
+#       test     = "StringEquals"
+#       variable = "sts:ExternalId"
+#       values   = [var.databricks_account_id]
+#     }
   }
 }
 
@@ -46,10 +46,7 @@ resource "aws_iam_role" "storage_credential_role" {
 data "aws_iam_policy_document" "storage_credential_iam_policy" {
   statement {
     actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:*"
     ]
 
     resources = [
@@ -59,23 +56,23 @@ data "aws_iam_policy_document" "storage_credential_iam_policy" {
 
     effect = "Allow"
 
-    condition {
-      test     = "IpAddressIfExists"
-      variable = "aws:SourceIp"
+#     condition {
+#       test     = "IpAddressIfExists"
+#       variable = "aws:SourceIp"
+#
+#       values = [
+#         var.control_plane_ip
+#       ]
+#     }
 
-      values = [
-        var.control_plane_ip
-      ]
-    }
-
-    condition {
-      test     = "StringEqualsIfExists"
-      variable = "aws:SourceVpc"
-
-      values = [
-        var.vpc_id
-      ]
-    }
+#     condition {
+#       test     = "StringEqualsIfExists"
+#       variable = "aws:SourceVpc"
+#
+#       values = [
+#         var.vpc_id
+#       ]
+#     }
   }
 
   statement {

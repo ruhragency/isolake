@@ -4,12 +4,7 @@ data "aws_iam_policy_document" "s3_vpc_endpoint_policy" {
     sid    = "Grant access to Databricks Root Bucket"
     effect = "Allow"
     actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "s3:PutObject",
-      "s3:DeleteObject",
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:*"
     ]
 
     principals {
@@ -22,31 +17,26 @@ data "aws_iam_policy_document" "s3_vpc_endpoint_policy" {
       "arn:aws:s3:::${var.dbfsname}"
     ]
 
-    condition {
-      test     = "StringEquals"
-      variable = "aws:PrincipalAccount"
-      values   = ["414351767826"]
-    }
-
-    condition {
-      test     = "StringEqualsIfExists"
-      variable = "aws:SourceVpc"
-      values = [
-        module.vpc.vpc_id
-      ]
-    }
+#     condition {
+#       test     = "StringEquals"
+#       variable = "aws:PrincipalAccount"
+#       values   = ["414351767826"]
+#     }
+#
+#     condition {
+#       test     = "StringEqualsIfExists"
+#       variable = "aws:SourceVpc"
+#       values = [
+#         module.vpc.vpc_id
+#       ]
+#     }
   }
 
   statement {
     sid    = "Grant access to Databricks Unity Catalog Metastore Bucket"
     effect = "Allow"
     actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "s3:PutObject",
-      "s3:DeleteObject",
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:*"
     ]
 
     principals {
@@ -64,10 +54,7 @@ data "aws_iam_policy_document" "s3_vpc_endpoint_policy" {
     sid    = "Grant read-only access to Data Bucket"
     effect = "Allow"
     actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:*"
     ]
 
     principals {
@@ -85,10 +72,7 @@ data "aws_iam_policy_document" "s3_vpc_endpoint_policy" {
     sid    = "Grant Databricks Read Access to Artifact and Data Buckets"
     effect = "Allow"
     actions = [
-      "s3:ListBucket",
-      "s3:GetObjectVersion",
-      "s3:GetObject",
-      "s3:GetBucketLocation"
+      "s3:*"
     ]
 
     principals {
@@ -108,9 +92,7 @@ data "aws_iam_policy_document" "s3_vpc_endpoint_policy" {
     sid    = "Grant access to Databricks Log Bucket"
     effect = "Allow"
     actions = [
-      "s3:PutObject",
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
+      "s3:*"
     ]
 
     principals {
@@ -119,15 +101,15 @@ data "aws_iam_policy_document" "s3_vpc_endpoint_policy" {
     }
 
     resources = [
-      "arn:aws:s3:::databricks-prod-storage-${var.region_name}/*",
-      "arn:aws:s3:::databricks-prod-storage-${var.region_name}"
+      "arn:aws:s3:::${var.resource_prefix}-log-delivery/*",
+      "arn:aws:s3:::${var.resource_prefix}-log-delivery"
     ]
 
-    condition {
-      test     = "StringEquals"
-      variable = "aws:PrincipalAccount"
-      values   = ["414351767826"]
-    }
+#     condition {
+#       test     = "StringEquals"
+#       variable = "aws:PrincipalAccount"
+#       values   = ["414351767826"]
+#     }
   }
 }
 
@@ -146,7 +128,7 @@ data "aws_iam_policy_document" "sts_vpc_endpoint_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["${var.aws_account_id}"]
+      identifiers = ["*"]
     }
   }
 
@@ -162,7 +144,7 @@ data "aws_iam_policy_document" "sts_vpc_endpoint_policy" {
     principals {
       type = "AWS"
       identifiers = [
-        "414351767826"
+        "*"
       ]
     }
   }
@@ -178,7 +160,7 @@ data "aws_iam_policy_document" "sts_vpc_endpoint_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::414351767826:user/databricks-datasets-readonly-user-prod"]
+      identifiers = ["*"]
     }
   }
 }
@@ -196,7 +178,7 @@ data "aws_iam_policy_document" "kinesis_vpc_endpoint_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["414351767826"]
+      identifiers = ["*"]
     }
   }
 }

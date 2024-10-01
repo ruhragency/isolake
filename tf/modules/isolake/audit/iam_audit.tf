@@ -20,17 +20,13 @@ resource "aws_iam_role" "log_delivery" {
 # // The Sample IAM Policy for Log Delivery Role
 data "aws_iam_policy_document" "log_delivery_policy" {
   statement {
-    actions   = ["s3:GetBucketLocation"]
+    actions   = ["s3:*"]
     resources = ["arn:aws:s3:::${aws_s3_bucket.log_delivery.id}"]
     effect    = "Allow"
   }
   statement {
     actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:DeleteObject",
-      "s3:PutObjectAcl",
-      "s3:AbortMultipartUpload"
+      "s3:*"
     ]
     resources = [
       "arn:aws:s3:::${aws_s3_bucket.log_delivery.id}",

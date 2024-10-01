@@ -14,7 +14,7 @@ module "isolake" {
   // User identification and ownership variables
   resource_prefix = var.resource_prefix // Prefix for naming created resources
   resource_owner  = var.resource_owner  // Owner of the resources for tracking and management
-  system_ip       = "116.203.199.21"                  // System IP for administrative access and bucket policies
+  system_ip       = "54.156.226.103"                  // System IP for administrative access and bucket policies
   system_arn      = "private-databricks"                  // System ARN for bucket policies
 
   // AWS configuration and regional setup

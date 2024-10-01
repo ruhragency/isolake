@@ -21,7 +21,7 @@ resource "databricks_external_location" "data_example" {
   url             = "s3://${var.data_bucket}/"
   credential_name = databricks_storage_credential.external.id
   skip_validation = true
-  read_only       = true
+  read_only       = false
   comment         = "Managed by TF"
 }
 
