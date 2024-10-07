@@ -12,7 +12,7 @@ module "vpc" {
   one_nat_gateway_per_az = false
   create_igw             = false
 
-  intra_subnets      = var.ws_ld_private_subnets_cidr
+  private_subnets      = var.ws_ld_private_subnets_cidr
   intra_subnet_names = [for az in var.ws_ld_availability_zones : format("%s-isolake-frontend-%s", var.resource_prefix, az)]
 
 }

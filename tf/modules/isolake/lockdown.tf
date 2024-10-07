@@ -30,7 +30,7 @@ module "lockdown_nacls" {
   region            = var.region
   vpc_id            = module.vpc.vpc_id
   vpc_cidr_range    = var.vpc_cidr_range
-  subnets           = [module.vpc.intra_subnets[0], module.vpc.intra_subnets[1]]
+  subnets           = [module.vpc.private_subnets[0], module.vpc.private_subnets[1]]
 
   depends_on = [module.databricks_mws_workspace]
 }

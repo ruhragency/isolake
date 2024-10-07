@@ -5,7 +5,7 @@ resource "aws_vpc_endpoint" "frontend_rest" {
   vpc_endpoint_type  = "Interface"
   security_group_ids = [aws_security_group.sg.id]
   subnet_ids = [
-    module.vpc.intra_subnets[0]
+    module.vpc.private_subnets[0]
   ]
   private_dns_enabled = true
   depends_on          = [module.vpc.vpc_id]
@@ -28,7 +28,7 @@ resource "aws_vpc_endpoint" "ssm_endpoint" {
   vpc_endpoint_type  = "Interface"
   security_group_ids = [aws_security_group.sg.id]
   subnet_ids = [
-    module.vpc.intra_subnets[0]
+    module.vpc.private_subnets[0]
   ]
   private_dns_enabled = true
   depends_on          = [module.vpc.vpc_id]
@@ -44,7 +44,7 @@ resource "aws_vpc_endpoint" "ssm_message_endpoint" {
   vpc_endpoint_type  = "Interface"
   security_group_ids = [aws_security_group.sg.id]
   subnet_ids = [
-    module.vpc.intra_subnets[0]
+    module.vpc.private_subnets[0]
   ]
   private_dns_enabled = true
   depends_on          = [module.vpc.vpc_id]
@@ -61,7 +61,7 @@ resource "aws_vpc_endpoint" "ec2_message_endpoint" {
   vpc_endpoint_type  = "Interface"
   security_group_ids = [aws_security_group.sg.id]
   subnet_ids = [
-    module.vpc.intra_subnets[0]
+    module.vpc.private_subnets[0]
   ]
   private_dns_enabled = true
   depends_on          = [module.vpc.vpc_id]

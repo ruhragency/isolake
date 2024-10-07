@@ -45,7 +45,7 @@ resource "aws_appstream_fleet" "appstream_fleet" {
   disconnect_timeout_in_seconds      = 3600
   instance_type                      = "stream.standard.small"
   vpc_config {
-    subnet_ids         = module.vpc.intra_subnets
+    subnet_ids         = module.vpc.private_subnets
     security_group_ids = tolist([aws_security_group.sg.id])
   }
   image_name = "Amazon-AppStream2-Sample-Image-03-11-2023"
