@@ -207,8 +207,8 @@ module "vpc_endpoints" {
       private_dns_enabled = true
       policy              = data.aws_iam_policy_document.sts_vpc_endpoint_policy.json
       subnet_ids = [
-        module.vpc.intra_subnets[0],
-        module.vpc.intra_subnets[1]
+        module.vpc.public_subnets[0],
+        module.vpc.public_subnets[1]
       ]
       tags = {
         Name = "${var.resource_prefix}-sts-vpc-endpoint"
@@ -219,8 +219,8 @@ module "vpc_endpoints" {
       private_dns_enabled = true
       policy              = data.aws_iam_policy_document.kinesis_vpc_endpoint_policy.json
       subnet_ids = [
-        module.vpc.intra_subnets[0],
-        module.vpc.intra_subnets[1]
+        module.vpc.public_subnets[0],
+        module.vpc.public_subnets[1]
       ]
       tags = {
         Name = "${var.resource_prefix}-kinesis-vpc-endpoint"
@@ -239,8 +239,8 @@ resource "aws_vpc_endpoint" "backend_rest" {
   vpc_endpoint_type  = "Interface"
   security_group_ids = [aws_security_group.sg.id]
   subnet_ids = [
-    module.vpc.intra_subnets[0],
-    module.vpc.intra_subnets[1]
+    module.vpc.public_subnets[0],
+    module.vpc.public_subnets[1]
   ]
   private_dns_enabled = true
   depends_on          = [module.vpc.vpc_id]
@@ -256,8 +256,8 @@ resource "aws_vpc_endpoint" "backend_relay" {
   vpc_endpoint_type  = "Interface"
   security_group_ids = [aws_security_group.sg.id]
   subnet_ids = [
-    module.vpc.intra_subnets[0],
-    module.vpc.intra_subnets[1]
+    module.vpc.public_subnets[0],
+    module.vpc.public_subnets[1]
   ]
   private_dns_enabled = true
   depends_on          = [module.vpc.vpc_id]

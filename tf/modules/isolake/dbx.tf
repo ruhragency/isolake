@@ -8,7 +8,7 @@ module "databricks_mws_workspace" {
   databricks_account_id       = var.databricks_account_id
   resource_prefix             = var.resource_prefix
   security_group_ids          = [aws_security_group.sg.id]
-  subnet_ids                  = [module.vpc.intra_subnets[0], module.vpc.intra_subnets[1]]
+  subnet_ids                  = [module.vpc.public_subnets[0], module.vpc.public_subnets[1]]
   vpc_id                      = module.vpc.vpc_id
   cross_account_role_arn      = aws_iam_role.cross_account_role.arn
   bucket_name                 = aws_s3_bucket.root_storage_bucket.id

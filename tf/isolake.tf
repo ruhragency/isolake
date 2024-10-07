@@ -30,6 +30,7 @@ module "isolake" {
   data_access          = "private-databricks"                             // Name of the user or entity that will be given read access to the data in UC
   vpc_cidr_range       = "10.0.0.0/23"                  // CIDR range for the VPC
   private_subnets_cidr = ["10.0.0.0/24", "10.0.1.0/24"] // CIDR blocks for private subnets
+  public_subnets_cidr  = ["10.0.0.0/24", "10.0.1.0/24"] // CIDR blocks for public subnets
   availability_zones   = ["us-east-1a", "us-east-1b"]   // Availability zones for resource deployment
   sg_ingress_protocol  = ["tcp", "udp"]                 // Allowed protocols for within security group ingress
   sg_egress_protocol   = ["tcp", "udp"]                 // Allowed protocols for within security group egress
