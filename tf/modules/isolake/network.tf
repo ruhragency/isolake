@@ -43,6 +43,14 @@ resource "aws_security_group" "sg" {
     }
   }
 
+  # Ingress rule for OpenVPN traffic from Hetzner VPN server
+  ingress {
+    from_port   = 1194
+    to_port     = 1194
+    protocol    = "udp"
+    cidr_blocks = ["116.203.199.21/32"]  # Hetzner VPN server's public IP
+  }
+
   dynamic "egress" {
     for_each = var.sg_egress_protocol
     content {
@@ -74,6 +82,14 @@ resource "aws_security_group" "sg" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Egress rule for OpenVPN to Hetzner VPN server
+  egress {
+    from_port   = 1194
+    to_port     = 1194
+    protocol    = "udp"
+    cidr_blocks = ["116.203.199.21/32"]  # Hetzner VPN server's public IP
   }
 
   tags = {
