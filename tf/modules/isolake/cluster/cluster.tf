@@ -11,12 +11,12 @@ resource "databricks_cluster" "example" {
     min_workers = 1
     max_workers = 2
   }
-  spark_conf = {
-    "spark.hadoop.javax.jdo.option.ConnectionUserName"   = "admin"
-    "spark.hadoop.javax.jdo.option.ConnectionURL"        = "jdbc:derby:memory:myInMemDB;create=true"
-    "spark.hadoop.javax.jdo.option.ConnectionDriverName" = "org.apache.derby.jdbc.EmbeddedDriver"
-    "spark.databricks.python.version" = "3.11.0rc1"
-  }
+#   spark_conf = {
+#     "spark.hadoop.javax.jdo.option.ConnectionUserName"   = "admin"
+#     "spark.hadoop.javax.jdo.option.ConnectionURL"        = "jdbc:derby:memory:myInMemDB;create=true"
+#     "spark.hadoop.javax.jdo.option.ConnectionDriverName" = "org.apache.derby.jdbc.EmbeddedDriver"
+#     "spark.databricks.python.version" = "3.11.0rc1"
+#   }
   init_scripts {
   s3 {
     destination = "s3://private-databricks-data-bucket/init-scripts/databricks_cluster_vpn_setup.sh"
