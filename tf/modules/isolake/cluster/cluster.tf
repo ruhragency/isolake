@@ -16,10 +16,6 @@ resource "databricks_cluster" "example" {
     "spark.hadoop.javax.jdo.option.ConnectionURL"        = "jdbc:derby:memory:myInMemDB;create=true"
     "spark.hadoop.javax.jdo.option.ConnectionDriverName" = "org.apache.derby.jdbc.EmbeddedDriver"
     "spark.databricks.python.version" = "3.11.0rc1"
-
-    # Set environment variable for region
-    "spark.executorEnv.REGION" = var.region
-    "spark.driverEnv.REGION"   = var.region
   }
   init_scripts {
   s3 {
