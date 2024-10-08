@@ -18,9 +18,8 @@ resource "databricks_cluster" "example" {
 #     "spark.databricks.python.version" = "3.11.0rc1"
 #   }
   init_scripts {
-  s3 {
-    destination = "s3://private-databricks-data-bucket/init-scripts/databricks_cluster_vpn_setup.sh"
-    region      = var.region
+  volumes {
+    destination = "/Volumes/main/test/test_volumne/databricks_cluster_vpn_setup.sh"
     }
   }
 }
