@@ -6,7 +6,7 @@ resource "databricks_cluster" "example" {
   node_type_id       = "i3.xlarge"
   data_security_mode = "USER_ISOLATION"
   is_pinned = true
-  autotermination_minutes = 10
+  autotermination_minutes = 30
   autoscale {
     min_workers = 1
     max_workers = 2
