@@ -9,7 +9,7 @@ resource "databricks_cluster" "example" {
   autotermination_minutes = 30
   autoscale {
     min_workers = 1
-    max_workers = 2
+    max_workers = 1
   }
 #   spark_conf = {
 #     "spark.hadoop.javax.jdo.option.ConnectionUserName"   = "admin"
@@ -19,7 +19,7 @@ resource "databricks_cluster" "example" {
 #   }
   init_scripts {
   volumes {
-    destination = "/Volumes/main/test/test_volumne/databricks_cluster_vpn_setup.sh"
+    destination = "/Volumes/main/test/test_volume/databricks_cluster_vpn_setup.sh"
     }
   }
 }

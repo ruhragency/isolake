@@ -1,26 +1,33 @@
 #!/bin/bash
 
-# Update package manager and install OpenVPN
-echo "Installing openvpn"
-sudo yum update -y
-sudo yum install -y openvpn
-echo "openvpn installed successfully"
-# Install AWS CLI if not already installed
-if ! command -v aws &> /dev/null
-then
-    echo "AWS CLI could not be found, installing..."
-    sudo yum install -y aws-cli
+# Define the region and local directory path for the VPN configuration
+LOCAL_VOLUME="/Volumes/main/test/test_volume"
+LOG_FILE="/Volumes/main/test/test_volume/vpn_setup.log"
+
+# Ping Google to check internet connectivity
+echo "Pinging Google to check connectivity..." >> $LOG_FILE
+ping -c 1 google.com >> $LOG_FILE
+if [ $? -ne 0 ]; then
+    echo "Ping failed. No internet connectivity." >> $LOG_FILE
+    exit 1
+else
+    echo "Ping successful." >> $LOG_FILE
 fi
 
-echo "AWS CLI installed successfully"
+# Update package manager and install OpenVPN
+echo "Installing OpenVPN" >> $LOG_FILE
+sudo yum update -y
+sudo yum install -y openvpn
+echo "OpenVPN installed successfully" >> $LOG_FILE
 
-REGION=us-east-1  # Change to your region
 
-# Download OpenVPN configuration and static key from S3
-echo "Copying open vpn configurations from s3"
-aws s3 cp s3://private-databricks-data-bucket/init-scripts/client.ovpn /home/ec2-user/client.ovpn --region $REGION
-aws s3 cp s3://private-databricks-data-bucket/init-scripts/static.key /home/ec2-user/static.key --region $REGION
-echo "successfully copied vpn configurations from s3"
+
+# Copy OpenVPN configuration and static key from the local volume
+echo "Copying OpenVPN configuration from the local volume" >> $LOG_FILE
+cp $LOCAL_VOLUME/client.ovpn /home/ec2-user/client.ovpn
+cp $LOCAL_VOLUME/static.key /home/ec2-user/static.key
+echo "Successfully copied VPN configuration from the local volume" >> $LOG_FILE
+
 # Start the OpenVPN connection
 sudo openvpn --config /home/ec2-user/client.ovpn --daemon
-echo "open vpn stated successfully"
+echo "OpenVPN started successfully" >> $LOG_FILE
