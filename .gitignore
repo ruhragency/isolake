@@ -47,3 +47,5 @@ terraform.rc
 
 # Ingore VPN key
 static.key
+
+vpn_setup.log
