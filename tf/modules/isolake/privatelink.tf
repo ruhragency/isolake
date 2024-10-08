@@ -196,7 +196,7 @@ module "vpc_endpoints" {
     s3 = {
       service         = "s3"
       service_type    = "Gateway"
-      route_table_ids = module.vpc.intra_route_table_ids
+      route_table_ids = module.vpc.private_route_table_ids
       policy          = data.aws_iam_policy_document.s3_vpc_endpoint_policy.json
       tags = {
         Name = "${var.resource_prefix}-s3-vpc-endpoint"

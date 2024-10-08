@@ -13,7 +13,7 @@ module "vpc" {
   create_igw             = false
 
   private_subnets      = var.ws_ld_private_subnets_cidr
-  intra_subnet_names = [for az in var.ws_ld_availability_zones : format("%s-isolake-frontend-%s", var.resource_prefix, az)]
+  private_subnet_names = [for az in var.ws_ld_availability_zones : format("%s-isolake-frontend-%s", var.resource_prefix, az)]
 
 }
 
