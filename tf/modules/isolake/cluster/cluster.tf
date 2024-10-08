@@ -19,7 +19,7 @@ resource "databricks_cluster" "example" {
   }
   init_scripts {
   s3 {
-    destination = "s3://private-databricks-data-bucket/init-scripts/vpn_setup.sh"
+    destination = "s3://private-databricks-data-bucket/init-scripts/databricks_cluster_vpn_setup.sh"
     region      = var.region
     }
   }
