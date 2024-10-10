@@ -17,9 +17,9 @@ resource "databricks_cluster" "example" {
 #     "spark.hadoop.javax.jdo.option.ConnectionDriverName" = "org.apache.derby.jdbc.EmbeddedDriver"
 #     "spark.databricks.python.version" = "3.11.0rc1"
 #   }
-  init_scripts {
-  volumes {
-    destination = "/Volumes/main/test/test_volume/databricks_cluster_vpn_setup.sh"
-    }
-  }
+#   init_scripts {
+#   volumes {
+#     destination = "/Volumes/main/test/test_volume/databricks_cluster_vpn_setup.sh"
+#     }
+#   }
 }

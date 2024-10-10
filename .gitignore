@@ -46,6 +46,7 @@ terraform.rc
 ./.idea/*
 
 # Ingore VPN key
-static.key
+vpn_connection/static.key
 
-vpn_setup.log
+vpn_connection/vpn_setup.log
+vpn_connection/client.ovpn
